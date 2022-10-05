@@ -1,3 +1,21 @@
+<?php
+include 'includes/db.php';
+
+$searchquery = $_GET["searchquery"] ?? '';
+
+//sql voorbereiden
+$pdo_statement = $db->prepare("
+SELECT * FROM message INNER JOIN users ON message.user_id = users.id
+WHERE message LIKE :searchplaceholder
+ORDER BY created_on DESC LIMIT 25;");
+//SQL Injection tegen gaan door params te binden of meteen in de execute meegeven
+//$pdo_statement->bindParam(':searchplaceholder', $searchquery);
+//sql uitvoeren
+$pdo_statement->execute([ ':searchplaceholder' => '%' . $searchquery . '%' ]);
+//resultaat ophalen
+$messages = $pdo_statement->fetchAll();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,20 +38,21 @@
                 </div>
             </div>
         </form>
-        <div class="message">
-            <div class="avatar"><img src="https://picsum.photos/id/1005/100/100"></div>
-            <div class="content">
-                <div class="info"><a href="#">Dieter De Weirdt</a> &bull; @deweirdt &bull; Donderdag 1 oktober 2020 11:20</div>
-                <div class="tweet">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae incidunt ipsam distinctio quam, quibusdam iure natus consequatur asperiores, expedita eos cumque eligendi sed perferendis voluptates culpa sunt, mollitia ipsa sapiente!</div>
+
+        <form>
+            <div class="search">
+                <input type="search" name="searchquery" value="<?= $searchquery; ?>">
+                <button type="submit">Zoek</button>
             </div>
-        </div>
-        <div class="message">
-            <div class="avatar"><img src="https://picsum.photos/id/237/100/100"></div>
-            <div class="content">
-                <div class="info"><a href="#">John Doe</a> &bull; @doe &bull; Donderdag 1 oktober 2020 11:03</div>
-                <div class="tweet">Hi</div>
-            </div>
-        </div>
+        </form>
+
+        <?php
+        foreach($messages as $message) {
+            //echo $message['message'];
+            include 'views/tweet.php';
+        }
+        ?>
+
     </div>
 
 </div>
