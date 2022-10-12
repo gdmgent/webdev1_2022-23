@@ -81,10 +81,11 @@
                                     <?php echo human_filesize($file_size); ?>
                                 </div>
                                 <div class="buttons">
+                                <a href="/view.php?file=<?php echo $item_path; ?>" class="btn">View</a>
                                 <?php if( file_is_text($file_extension) ) : ?>
-                                    <a href="/darkshare/edit.php?file=<?php echo $item_path; ?>" class="btn">Edit</a>
+                                    <a href="/edit.php?file=<?php echo $item_path; ?>" class="btn">Edit</a>
                                 <?php endif; ?>
-                                    <a href="/darkshare/<?php echo $item_path; ?>" class="btn" download>Download</a>
+                                    <a href="/<?php echo $item_path; ?>" class="btn" download>Download</a>
                                 </div>
                             </div> 
                         <?php
