@@ -44,12 +44,26 @@ $flight = $statement->fetch();
     <form method="POST" action="./place_order.php">
 <div class="order_form">
     <div class="seats">
-        <div class="row">
-            <span>1</span>
-            <div class="seat seat-ordered">A</div>
-            <div class="spacer"></div>
-            <div class="seat">B<input type="checkbox" name="TODO" value="TODO"></div>      
-        </div>
+        <?php for( $i = 1 ; $i <= $flight['rows'] ; $i++ ) : ?>
+            <div class="row">
+                <span><?= $i; ?></span>
+                <?php $layout = str_split($flight['row_layout']); ?>
+                <?php
+                //for ( $seat = 0; $seat < count($layout) ; $seat ++) : 
+                foreach( $layout as $seat) : ?>
+                    <?php if ( $seat == '_') : ?>
+                        <div class="spacer"></div>
+                    <?php else : ?>
+                        <!--<div class="seat seat-ordered">A</div>-->
+                        <div class="seat">
+                            <?= $seat; ?>
+                            <input type="checkbox" name="seats[]" value="<?= $i . $seat ?>">
+                        </div>      
+                    <?php endif; ?>
+                <?php endforeach;
+                //endfor; ?>
+            </div>
+        <?php endfor; ?>
     </div>
     <div class="form">
         Uw voornaam:   <input type="text" name="firstname" >  <br>

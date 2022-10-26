@@ -1,5 +1,9 @@
 <?php
 
+print_r($_POST);
+exit;
+
+
 //Connectie DB
 include 'includes/db.php';
 
