@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+session_start(); //of gewoon verderzetten
+$order_id = $_SESSION['order_id'];
+echo 'Bedankt voor bestelling met id: ' . $order_id;
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
