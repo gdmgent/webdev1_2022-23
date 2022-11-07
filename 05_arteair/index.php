@@ -1,18 +1,11 @@
 <?php
 include 'includes/db.php';
+include 'model/Flight.php';
 
-$sql = "SELECT flight.*, af.name as from_name, at.name as to_name, aircraft.*
-        FROM flight
-        INNER join aircraft on flight.aircraft_id = aircraft.aircraft_id
-        INNER JOIN airport af ON flight.from = af.airport_id
-        INNER JOIN airport at ON flight.to = at.airport_id";
+//$flight = new Flight();
+//$flights = $flight->getAll();
 
-//prepare
-$statement = $db->prepare($sql);
-//execute
-$statement->execute();
-//fetch
-$flights = $statement->fetchAll();
+$flights = Flight::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">

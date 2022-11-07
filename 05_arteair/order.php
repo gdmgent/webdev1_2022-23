@@ -1,24 +1,10 @@
 <?php
 include 'includes/db.php';
+include 'model/Flight.php';
+
 $flight_id = $_GET['flight_id'];
 
-$sql = "SELECT flight.*, af.name as from_name, at.name as to_name, aircraft.*
-        FROM flight
-        INNER join aircraft on flight.aircraft_id = aircraft.aircraft_id
-        INNER JOIN airport af ON flight.from = af.airport_id
-        INNER JOIN airport at ON flight.to = at.airport_id
-        WHERE flight_id = :flight_placeholder";
-
-//prepare
-$statement = $db->prepare($sql);
-//execute
-$statement->execute([
-    ':flight_placeholder' => $flight_id
-]);
-//fetch
-$flight = $statement->fetch();
-
-
+$flight = Flight::getById( $flight_id );
 
 ?><!DOCTYPE html>
 <html lang="en">

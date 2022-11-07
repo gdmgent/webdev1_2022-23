@@ -1,11 +1,10 @@
 <?php
 
 include '../../includes/db.php';
+include '../../model/Flight.php';
 
-$sql = 'SELECT * FROM flight';
-$stmnt = $db->prepare($sql);
-$stmnt->execute();
-$flights = $stmnt->fetchAll();
+$flight = new Flight();
+$flights = $flight->getAll();
 
 foreach($flights as $flight) : ?>
     <li>
