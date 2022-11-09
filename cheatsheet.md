@@ -64,7 +64,7 @@ $success = $statement->execute([
 
 ## 4. Fetch
 
-Na het uitvoeren van de query moeten we bij de select queries ook nog eens de gegeven ophalen (fetchen). Dit kan op meerdere maniere
+Na het uitvoeren van de query moeten we bij de select queries ook nog eens de gegeven ophalen (fetchen). Dit kan op meerdere manieren:
 
 | methode | omschrijving | voorbeeld |
 | ------- | ------------ | --------- |
