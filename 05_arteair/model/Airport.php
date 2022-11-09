@@ -2,9 +2,7 @@
 
 class Airport extends BaseModel {
 
-    public static function getAll() {
-        
-        return BaseModel::getAllItems('airport');
+    public function full_name() {
+        return $this->name . ' - ' . $this->airport_code;
     }
-
 }

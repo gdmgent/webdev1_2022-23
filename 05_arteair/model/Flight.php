@@ -1,6 +1,6 @@
 <?php 
 
-class Flight {
+class Flight extends BaseModel{
 
     public $from;
     public $to;

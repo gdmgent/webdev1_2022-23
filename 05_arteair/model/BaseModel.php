@@ -2,10 +2,16 @@
 
 class BaseModel {
 
-    public static function getAllItems($table) {
+    public static function find($id) {
+
+    }
+    
+    public static function getAll() {
         global $db;
 
-        $sql = 'SELECT * FROM ' . $table;
+        $table = strtolower( get_called_class() );
+
+        $sql = "SELECT * FROM `$table`";
         $statement = $db->prepare($sql);
         $statement->execute();
         $items = $statement->fetchAll();

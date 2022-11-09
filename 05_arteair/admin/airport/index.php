@@ -1,15 +1,18 @@
 <?php
+include $_SERVER['DOCUMENT_ROOT'] . '/app.php';
 
 //Airport controller
 //alle airports gaat printen... 
 //maak gebruik van Model en views
-include '../../includes/db.php';
-include '../../model/BaseModel.php';
-include '../../model/Airport.php';
 
+//maken een nieuwe instantie aan van het type airport
+// $airport = new Airport();
+// $airports = $airport->getAll();
+
+//aanroepen via static method zonder nieuwe instantie
 $airports = Airport::getAll();
-
 print_r($airports);
+
 ?>
 <h1>Airport admin page</h1>
 

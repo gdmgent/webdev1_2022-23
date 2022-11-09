@@ -1,6 +1,5 @@
 <?php
-include 'includes/db.php';
-include 'model/Flight.php';
+include 'app.php';
 
 //$flight = new Flight();
 //$flights = $flight->getAll();
