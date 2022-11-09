@@ -1,9 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/app.php';
-
 //Airport controller
-//alle airports gaat printen... 
-//maak gebruik van Model en views
+include $_SERVER['DOCUMENT_ROOT'] . '/app.php';
 
 //maken een nieuwe instantie aan van het type airport
 // $airport = new Airport();
@@ -12,6 +9,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/app.php';
 //aanroepen via static method zonder nieuwe instantie
 $airports = Airport::getAll();
 print_r($airports);
+
+//TODO; Loop maken met alle airports
 
 ?>
 <h1>Airport admin page</h1>
