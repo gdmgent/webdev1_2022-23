@@ -1,5 +1,4 @@
 <div class="cocktail">
     <h2><?= $cocktail->name; ?></h2>
-    <img src="<?= $cocktail->photo; ?>">
-    <p><?= $cocktail->description; ?></p>
+    <img src="images/cocktails/<?= $cocktail->photo; ?>">
 </div>
