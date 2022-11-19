@@ -5,6 +5,7 @@ class BaseModel {
 
     protected $table;
     protected $pk;
+    protected $db;
 
     public static function __callStatic ($method, $arg) {
         $obj = new static;
@@ -21,40 +22,44 @@ class BaseModel {
         if(!isset($this->pk)) {
             $this->pk = 'id';
         }
+        if(!isset($this->db)) {
+            global $db;
+            $this->db = $db;
+        }
     }
 
     private function getAll () {
-        global $db;
 
         $sql = 'SELECT * FROM `' . $this->table . '`';
-        $pdo_statement = $db->prepare($sql);
+        $pdo_statement = $this->db->prepare($sql);
         $pdo_statement->execute();
 
         $db_items = $pdo_statement->fetchAll(); 
-        $items = [] ;
-
-        foreach($db_items as $db_item) {
-            $items[] = $this->castDbObjectToModel($db_item);
-        }
-
-        return $items;
+        
+        return $this->castToModel($db_items);
     }
 
     private function find ( int $id ) {
-        global $db;
 
         $sql = 'SELECT * FROM `' . $this->table . '` WHERE `' . $this->pk . '` = :p_id';
-        $pdo_statement = $db->prepare($sql);
+        $pdo_statement = $this->db->prepare($sql);
         $pdo_statement->execute( [ ':p_id' => $id ] );
 
         $db_item = $pdo_statement->fetchObject();
 
-        return $this->castDbObjectToModel($db_item);
+        return $this->castToModel($db_item);
     }
 
-    private function castDbObjectToModel ($db_item) {
-
-        $db_item = (object) $db_item;
+    private function castToModel ($object) {
+        if(!is_object($object) && isset($object[0]) && is_array($object[0])) {
+            //array of items
+            $items = [];
+            foreach($object as $db_item) {
+                $items[] = $this->castToModel($db_item);
+            }
+            return $items;
+        }
+        $db_item = (object) $object;
         //Creates new Model
         $model_name = get_class($this);
         $item = new $model_name();
@@ -68,10 +73,8 @@ class BaseModel {
 
     //static method to call like: Model::deleteById(1);
     private function deleteById ( int $id ) {
-        global $db;
-
         $sql = 'DELETE FROM `' . $this->table . '` WHERE `' . $id . '` = :p_id';
-        $pdo_statement = $db->prepare($sql);
+        $pdo_statement = $this->db->prepare($sql);
         return $pdo_statement->execute( [ ':p_id' => $id ] );
     }
 
