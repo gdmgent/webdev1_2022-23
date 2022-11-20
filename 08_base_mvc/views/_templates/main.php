@@ -16,7 +16,7 @@
         <?= $content; ?>
     </main>
     
-    <?php include_once BASE_DIR . '/views/_templates/_partials/footer.php'; ?>
+    <?php include_once  BASE_DIR . '/views/_templates/_partials/footer.php'; ?>
 
 </body>
 </html>

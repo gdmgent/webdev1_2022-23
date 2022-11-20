@@ -1,4 +1,5 @@
-<h1>Index pagina van de cocktails</h1>
-<?php
-
-print_r( $cocktails );
+<div class="cocktails">
+    <?php foreach ( $cocktails as $cocktail) {
+        include BASE_DIR . '/views/cocktail/_partial/cocktail.php';
+    }?>
+</div>
