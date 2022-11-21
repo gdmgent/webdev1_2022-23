@@ -18,6 +18,7 @@ $router = new \Bramus\Router\Router();
 //$router->get('/', function() { echo 'Dit is de index vanuit de route'; });
 $router->get('/', 'App\Controllers\CocktailController@index');
 $router->get('/cocktail/(\d+)', 'App\Controllers\CocktailController@detail');
+$router->get('/ingredients', 'App\Controllers\IngredientController@index');
 
 //Run
 $router->run();

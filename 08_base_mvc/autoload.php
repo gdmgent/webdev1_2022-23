@@ -1,5 +1,10 @@
 <?php
 
+if(!file_exists(__DIR__ . '/vendor/autoload.php')) {
+    echo 'Run composer first';
+    exit;
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 function loadPhpFiles($dir, $recursive = true) {

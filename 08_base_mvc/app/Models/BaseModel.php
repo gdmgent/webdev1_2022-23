@@ -36,7 +36,7 @@ class BaseModel {
 
         $db_items = $pdo_statement->fetchAll(); 
         
-        return $this->castToModel($db_items);
+        return self::castToModel($db_items);
     }
 
     private function find ( int $id ) {
@@ -47,7 +47,7 @@ class BaseModel {
 
         $db_item = $pdo_statement->fetchObject();
 
-        return $this->castToModel($db_item);
+        return self::castToModel($db_item);
     }
 
     private function castToModel ($object) {

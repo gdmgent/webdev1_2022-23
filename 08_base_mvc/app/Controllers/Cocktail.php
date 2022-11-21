@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\Cocktail as Cocktail;
+use App\Models\Cocktail;
 
 class CocktailController extends BaseController {
 
     public static function index () {
         $cocktails = Cocktail::getAll();
-
-        //tussenbewerking op die data
 
         self::loadView('/cocktail/index', [
             'cocktails' => $cocktails
@@ -16,8 +14,11 @@ class CocktailController extends BaseController {
     }
 
     public static function detail ($id) {
+        $cocktail = Cocktail::find($id);
+
         self::loadView('/cocktail/detail', [
-            'cocktail' => Cocktail::find($id)
+            'cocktail' => $cocktail,
+            'ingredients' => $cocktail->getIngredients()
         ]);
     }
 

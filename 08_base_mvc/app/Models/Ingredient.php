@@ -1,15 +1,16 @@
 <?php
 namespace App\Models;
 
-class Cocktail extends BaseModel {
+class Ingredient extends BaseModel {
 
-    public function getIngredients() {
+    protected function getByCocktailId($id) {
         $sql = 'SELECT * FROM `ingredients` INNER JOIN `cocktail_ingredient` WHERE `cocktail_id` = :p_id';
         $pdo_statement = $this->db->prepare($sql);
-        $pdo_statement->execute( [ ':p_id' => $this->id ] );
+        $pdo_statement->execute( [ ':p_id' => $id ] );
 
         $db_item = $pdo_statement->fetchObject();
 
-        return Ingredient::castToModel($db_item);
+        return self::castToModel($db_item);
     }
+
 }
