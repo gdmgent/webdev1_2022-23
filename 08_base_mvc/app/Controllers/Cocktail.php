@@ -17,8 +17,7 @@ class CocktailController extends BaseController {
         $cocktail = Cocktail::find($id);
 
         self::loadView('/cocktail/detail', [
-            'cocktail' => $cocktail,
-            'ingredients' => $cocktail->getIngredients()
+            'cocktail' => $cocktail
         ]);
     }
 
