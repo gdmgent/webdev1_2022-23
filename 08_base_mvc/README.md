@@ -1,23 +1,38 @@
 # Base MVC
 
+Dit project bevat een basis opzet van MVC (Model View Controller). En helpt je om sneller te kunnen ontwikkelen, code logisch te groeperen en onderdelen te hergebruiken.
+
+## Onderdelen
+
+| Functionaliteit | Omschrijving | Locatie |
+| ----------- | ----------- | ----------- |
+| Routing | Beslist wat er moet gebeuren met een URL en stuurt door naar Controller | /app.php |
+| Controller | Krijgt een request binnen op een method, haalt data op uit de model en stuurt dit door naar de juiste view | /app/Controllers/ |
+| Models | Staat in contact met de database, voert sql opdrachten uit en stuurt resultaat terug | /app/Models |
+| Views | Bevat de inhoud of een deel van de inhoud van een pagina | /
+/views/... |
+| Templates | Bevat de volledige layout van de pagina | /views/_templates/... |
+
+## Installatie
+
 Installeer de nodige packages via composer.
 
 ```
 composer install
 ```
 
-Applicatie opstarten via php
+Applicatie opstarten via de PHP serve
 ```
 cd public
 php -S localhost:8888
 ```
-Let op: bij mac uitvoeren met `sudo`
+**Let op: bij mac uitvoeren met `sudo`**
 
 ## Router
 
-Nieuwe pagina's moeten aangemaakt worden via de router class. De routes kunnen aangemaakt worden in `app.php`
+Nieuwe pagina's of bereikbare URL's moeten aangemaakt worden via de router class. De routes kunnen aangemaakt worden in `app.php`
 
-Hier bouw je de url op en stuur je deze door naar de desbetreffende controller en method.
+Hier bouw je de url op en stuur je deze door naar de desbetreffende controller en een van zijn methods.
 
 bv:
 
@@ -27,16 +42,16 @@ $router->get('/cocktail/(\d+)', 'App\Controllers\CocktailController@detail');
 
 ## Controller
 
-Deze controller stuurt dus de request door naar de desbetreffende controller met bijhorende method CocktailController@detail wil dus zeggen dat we de method `detail` aanroepen in de `CocktailController`.
+Deze controller stuurt dus de request door naar de desbetreffende  method. CocktailController@detail wil dus zeggen dat bij de url http://localhost:8888/cocktail/1 de method `detail` wordt aanroepen in de `CocktailController` met als parameter '1'.
 
 Een controller staat dus in voor het bekijken van de response en het versturen van de uiteindelijke response.
 
-Je kan hier validatie doen van data, formulieren.
-Ophalen van data uit cookies of uit de session.
+Je kan hier validatie doen van data afkomstig van de request URL of via een formulier ($_POST).
+Daarnaast kan je ook data ophalen uit cookies of de session.
 
-Afhankelijk van de request zal de controller dan de data ophalen via een model.
+Afhankelijk van de soort pagina zal de controller dus data moeten ophalen. Bijvoorbeeld via een of meerdere models. Bv: `Cocktail::find($id)`
 
-Met behulp van de views en de nodige data zal de respons gemaakt worden.
+Met behulp van de views en de nodige data zal de response HTML opgebouwd worden via de method `loadView` uit de `BaseController`.
 
 ```
 <?php
@@ -49,8 +64,6 @@ class CocktailController extends BaseController {
     public static function detail ($id) {
         $cocktail = Cocktail::find($id);
 
-
-        print_r(Ingredient::getByCocktailId($id));
         self::loadView('/cocktail/detail', [
             'cocktail' => $cocktail
         ]);
@@ -61,16 +74,18 @@ class CocktailController extends BaseController {
 
 ## Model
 
-Een model is een voorstelling van een object uit onze database. In veel gevallen zal een tabel dus een bijhorende model hebben. Indien we een lege model class maken en afleiden van de `BaseModel` dan zitten hier reeds basis methods in zoals `getAll`, `find`, `delete`.
+Een model is een voorstelling van een object uit onze database. In veel gevallen zal een tabel dus een bijhorende model hebben. Indien we een lege model class maken en afleiden van de `BaseModel` dan zitten hier reeds basis methods in zoals `getAll`, `find` of `delete`.
 
-Willen we niet deze standaard method dan moeten we een nieuwe method aanmaken in deze nieuw aangemaakte model. Wil je een method aanmaken dat bruikbaar is voor alle models dan kan dit in de `BaseModel`.
+Willen we niet deze standaard methods dan moeten we een nieuwe method aanmaken in deze nieuw aangemaakte model. Wil je een method aanmaken dat bruikbaar is voor alle models dan kan dit in de `BaseModel`.
 
 ```
 <?php
 namespace App\Models;
 
 class Cocktail extends BaseModel {
-
+    public function MijnSpecifiekeMethod() {
+        //eigen code...
+    }
 }
 ```
 
@@ -78,7 +93,9 @@ class Cocktail extends BaseModel {
 
 De view wordt opgeroepen vanuit de Controller of vanuit een andere view. En stelt de html van de pagina voor.
 
-Hierin zit enkel de data, niet de volledige html. Deze zit in de template.
+Hierin zit enkel de data, niet de volledige html. Deze zit in de template. 
+
+Hieronder een voorbeeld van de view `/views/cocktail/detail.php`.
 
 ```
 <h1><?= $cocktail->name; ?></h1>
@@ -88,4 +105,18 @@ Hierin zit enkel de data, niet de volledige html. Deze zit in de template.
 
 ### Template
 
-De template omvat de volledige html structuur met `<head>` en `<body>`. De variabele `$content` wordt vervangen door de inhoud van de view die werd aangeroepen vanuit de controller.
+De template omvat de volledige html structuur met `<head>` en `<body>`. De variabele `$content` wordt vervangen door de inhoud van de view die werd aangeroepen vanuit de controller. En kan je aanpassen in `/views/_templates/main.php`.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    ...
+</head>
+<body>
+    <main>
+        <?= $content; ?>
+    </main>
+</body>
+</html>
+```
