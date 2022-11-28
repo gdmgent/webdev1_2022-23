@@ -9,19 +9,18 @@ Dit project bevat een basis opzet van MVC (Model View Controller). En helpt je o
 | Routing | Beslist wat er moet gebeuren met een URL en stuurt door naar Controller | /app.php |
 | Controller | Krijgt een request binnen op een method, haalt data op uit de model en stuurt dit door naar de juiste view | /app/Controllers/ |
 | Models | Staat in contact met de database, voert sql opdrachten uit en stuurt resultaat terug | /app/Models |
-| Views | Bevat de inhoud of een deel van de inhoud van een pagina | /
-/views/... |
+| Views | Bevat de inhoud of een deel van de inhoud van een pagina | /views/... |
 | Templates | Bevat de volledige layout van de pagina | /views/_templates/... |
 
 ## Installatie
 
-Installeer de nodige packages via composer.
+Installeer de nodige packages via [composer](https://getcomposer.org/).
 
 ```
 composer install
 ```
 
-Applicatie opstarten via de PHP serve
+Applicatie opstarten via de PHP serve functionaliteit
 ```
 cd public
 php -S localhost:8888
@@ -32,13 +31,16 @@ php -S localhost:8888
 
 Nieuwe pagina's of bereikbare URL's moeten aangemaakt worden via de router class. De routes kunnen aangemaakt worden in `app.php`
 
-Hier bouw je de url op en stuur je deze door naar de desbetreffende controller en een van zijn methods.
+Hier bouw je de url op en stuur je deze door naar de desbetreffende controller en een van zijn methods. Variabele elementen in de URL kan je toevoegen via regular expressions.
 
 bv:
 
 ```
 $router->get('/cocktail/(\d+)', 'App\Controllers\CocktailController@detail');
 ```
+
+> Voor de routing gebruik ik een externe library. 
+> [Meer info over de mogelijkheden kan je terugvinden op de GitHub pagina](https://github.com/bramus/router)
 
 ## Controller
 
