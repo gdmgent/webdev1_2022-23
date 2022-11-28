@@ -19,6 +19,8 @@ $router = new \Bramus\Router\Router();
 $router->get('/', 'App\Controllers\CocktailController@index');
 $router->get('/cocktail/(\d+)', 'App\Controllers\CocktailController@detail');
 $router->get('/ingredients', 'App\Controllers\IngredientController@index');
+$router->get('/register', 'App\Controllers\UserController@register');
+$router->post('/register', 'App\Controllers\UserController@register');
 
 //Run
 $router->run();
