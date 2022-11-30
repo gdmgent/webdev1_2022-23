@@ -8,8 +8,6 @@ class User extends BaseModel {
 
     public function create() {
 
-        echo 'TODO: SQL schrijven en uitvoeren voor registratie: ';
-
         //echo $this->email .  ' - ' . $this->password;
 
         //sql INSERT INTO
@@ -26,7 +24,7 @@ class User extends BaseModel {
         //fetch hebben we niet nodig
         $new_id = $this->db->lastInsertId();
 
-        echo $new_id;
+        echo 'Nieuwe id van user is ' . $new_id;
 
         return $new_id;
 
