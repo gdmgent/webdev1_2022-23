@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+global $current_user;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +13,13 @@
     <div class="brand">BrandName</div>
 
     <?php include_once BASE_DIR . '/views/_templates/_partials/nav.php'; ?>
+
+    <?php if(isset($current_user)) : ?>
+        <a href="/logout">Logout</a>
+        <a href="/cocktail/create">Cocktail toevoegen</a>
+    <?php else : ?>
+        <a href="/logout">Login</a>
+    <?php endif; ?>
 
     <main>
         <?= $content; ?>

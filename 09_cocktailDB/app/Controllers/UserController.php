@@ -31,4 +31,22 @@ class UserController extends BaseController {
         }
     }
 
+    public static function login() {
+        //echo 'pagina aanmaken login';
+
+        if(isset($_POST['email'])) {
+            //echo 'TODO: login';
+            $user = User::login($_POST['email'], $_POST['password']);
+            if($user) {
+                $_SESSION['user_id'] = $user->id; 
+            } else {
+                echo 'wrong pwd';
+            }
+        }
+
+        self::loadView('/user/login', [
+
+        ]);
+    }
+
 }

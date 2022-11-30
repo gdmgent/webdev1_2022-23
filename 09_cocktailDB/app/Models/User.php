@@ -29,4 +29,22 @@ class User extends BaseModel {
         return $new_id;
 
     }
+
+    protected function login($email, $password) {
+        //sql user ophalen
+        $sql = 'SELECT * FROM users WHERE email = :email';
+
+        $stmnt = $this->db->prepare($sql);
+        $stmnt->execute([
+            ':email' => $email
+        ]);
+        $user = $stmnt->fetchObject();
+        
+        if(password_verify($password, $user->password)) {
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
 }

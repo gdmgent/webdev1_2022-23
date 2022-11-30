@@ -8,8 +8,11 @@ class BaseModel {
     protected $db;
 
     public static function __callStatic ($method, $arg) {
+        
         $obj = new static;
+
         $result = call_user_func_array (array ($obj, $method), $arg);
+
         if (method_exists ($obj, $method))
             return $result;
         return $obj;
@@ -82,5 +85,6 @@ class BaseModel {
     public function delete () {
         $this->deleteById( $this->pk );
     }
+
 
 }
