@@ -21,6 +21,7 @@ $router->get('/cocktail/(\d+)', 'App\Controllers\CocktailController@detail');
 $router->get('/ingredients', 'App\Controllers\IngredientController@index');
 $router->get('/register', 'App\Controllers\UserController@register');
 $router->post('/register', 'App\Controllers\UserController@register');
+$router->get('/users', 'App\Controllers\UserController@all');
 
 //Run
 $router->run();

@@ -23,4 +23,12 @@ class UserController extends BaseController {
         ]);
     }
 
+    public static function all() {
+        $all = User::getAll();
+
+        foreach($all as $user) {
+            echo $user->email;
+        }
+    }
+
 }
