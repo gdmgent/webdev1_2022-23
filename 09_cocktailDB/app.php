@@ -20,7 +20,7 @@ session_start();
 $user_id = $_SESSION['user_id'] ?? 0;
 if($user_id) {
     $current_user = User::find($user_id);
-    echo 'Ingelogde gebruiker is: ' . $current_user->email;
+    //echo 'Ingelogde gebruiker is: ' . $current_user->email;
 }
 
 
