@@ -39,6 +39,7 @@ class UserController extends BaseController {
             $user = User::login($_POST['email'], $_POST['password']);
             if($user) {
                 $_SESSION['user_id'] = $user->id; 
+                self::redirect('/', 302);
             } else {
                 echo 'wrong pwd';
             }

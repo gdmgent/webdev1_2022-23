@@ -40,7 +40,8 @@ class User extends BaseModel {
         ]);
         $user = $stmnt->fetchObject();
         
-        if(password_verify($password, $user->password)) {
+        //check if user found and password correct
+        if(isset($user->id) && password_verify($password, $user->password)) {
             return $user;
         } else {
             return false;
