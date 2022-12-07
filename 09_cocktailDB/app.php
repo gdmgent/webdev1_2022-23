@@ -35,6 +35,8 @@ $router->post('/register', 'App\Controllers\UserController@register');
 $router->get('/users', 'App\Controllers\UserController@all');
 $router->get('/login', 'App\Controllers\UserController@login');
 $router->post('/login', 'App\Controllers\UserController@login');
+$router->get('/cocktail/create', 'App\Controllers\CocktailController@create');
+$router->post('/cocktail/create', 'App\Controllers\CocktailController@create');
 
 //Run
 $router->run();

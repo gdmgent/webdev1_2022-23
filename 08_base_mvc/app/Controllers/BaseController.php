@@ -36,7 +36,7 @@ class BaseController {
         include BASE_DIR . '/views/_templates/main.php';
     }
 
-    private function redirect($url, $code = null) {
+    protected function redirect($url, $code = 302) {
         header("Location: " . $url, true, $code);
         exit();
     }

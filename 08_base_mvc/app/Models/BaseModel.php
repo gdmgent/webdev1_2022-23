@@ -50,7 +50,7 @@ class BaseModel {
         return self::castToModel($db_item);
     }
 
-    private function castToModel ($object) {
+    protected function castToModel ($object) {
         if(!is_object($object) && isset($object[0]) && is_array($object[0])) {
             //array of items
             $items = [];

@@ -12,4 +12,20 @@ class Cocktail extends BaseModel {
 
         return Ingredient::castToModel($db_item);
     }
+
+    public function create() {
+        $sql = 'INSERT INTO cocktails (name, description, photo) 
+                    VALUES (:name, :description, :photo)';
+
+        $stmnt = $this->db->prepare($sql);
+        $stmnt->execute([
+            ':name' => $this->name,
+            ':description' => $this->description,
+            ':photo' => $this->photo,
+        ]);
+
+        $this->id = $this->db->lastInsertId();
+        
+        return $this->id;
+    }
 }
