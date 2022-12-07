@@ -7,8 +7,17 @@ if(!file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+function sortUnderscoreToFront($a, $b) {
+    if (substr($a, 0, 1) == '_' || substr($b, 0, 1) == '_') {
+        return ((substr($a,0,1)=='_')?-1:1);
+    }
+    return strcmp(strval($a), strval($b));
+}
+
 function loadPhpFiles($dir, $recursive = true) {
-    $items = scandir($dir);
+    $items = preg_grep('/^([^.])/', scandir($dir));
+    usort($items, 'sortUnderscoreToFront');
+
     foreach($items as $item) {
         if ($recursive && strpos( $item, '.') !== 0 && is_dir($dir . '/' . $item)) {
             loadPhpFiles($dir . '/' . $item);

@@ -37,6 +37,7 @@ $router->get('/login', 'App\Controllers\UserController@login');
 $router->post('/login', 'App\Controllers\UserController@login');
 $router->get('/cocktail/create', 'App\Controllers\CocktailController@create');
 $router->post('/cocktail/create', 'App\Controllers\CocktailController@create');
+$router->get('/cocktail/api_get_cocktails/(\d+)', 'App\Controllers\CocktailController@apiGetCocktails');
 
 //Run
 $router->run();

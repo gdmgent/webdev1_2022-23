@@ -7,13 +7,21 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class CocktailController extends BaseController {
 
+
     public static function index () {
-        $cocktails = Cocktail::getAll();
+        $cocktails = Cocktail::getByPage();
         //$users = User::getAll();
 
         self::loadView('/cocktail/index', [
             'cocktails' => $cocktails
         ]);
+    }
+
+    public static function apiGetCocktails($page) {
+        $cocktails = Cocktail::getByPage($page);
+        header("Content-Type: application/json");
+        
+        echo json_encode($cocktails);
     }
 
     public static function detail ($id) {
