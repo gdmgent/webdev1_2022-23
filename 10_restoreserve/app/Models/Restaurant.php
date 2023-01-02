@@ -16,4 +16,5 @@ class Restaurant extends BaseModel {
         return self::castToModel($db_items);
     }
 
+
 }
